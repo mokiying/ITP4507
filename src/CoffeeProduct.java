@@ -4,13 +4,13 @@ public class CoffeeProduct {
     private int productID;
     private int qty;
 
-    public CoffeeProduct(String name, int productID) {
-        this.name = name;
+    public CoffeeProduct(int productID, String name) {
         this.productID = productID;
+        this.name = name;
     }
 
     public String toString() {
-        return "";
+        return getProductID() + "\t" + getName() + "\t\t\t" + getQty();
     }
     public String getName() {
         return name;
@@ -29,5 +29,14 @@ public class CoffeeProduct {
     }
     public void setQty(int qty) {
         this.qty = qty;
+    }
+    public String stringDetails(){
+        return "ID: " + getProductID() +"\nName: " + getName() + "\nQuantity: " + getQty();
+    }
+    
+    public CoffeeProduct clone(){
+        CoffeeProduct temp = new CoffeeProduct(this.productID, this.name);
+        temp.setQty(this.qty);
+        return temp;
     }
 }
