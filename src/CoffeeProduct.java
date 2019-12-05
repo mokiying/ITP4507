@@ -33,5 +33,9 @@ public class CoffeeProduct {
     public String stringDetails(){
         return "ID: " + getProductID() +"\nName: " + getName() + "\nQuantity: " + getQty();
     }
-    
+    public CoffeeProduct clone(){
+        CoffeeProduct temp = new CoffeeProduct(this.productID, this.name);
+        temp.setQty(this.qty);
+        return temp;
+    }
 }

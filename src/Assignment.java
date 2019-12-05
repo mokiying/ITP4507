@@ -7,10 +7,9 @@ public class Assignment {
 
     public static void main(String[] args) {
 
-        Vector<CoffeeProduct> coffeeProduct = new Vector<CoffeeProduct>();
         Stack<CoffeeCommand> commands = new Stack<CoffeeCommand>();
         Caretaker ct = new Caretaker();
-        CoffeeHouse ch = new CoffeeHouse(coffeeProduct);
+        CoffeeHouse ch = new CoffeeHouse();
         String command;
         ct.saveHistory(ch, "FirstSave");
         while (true) {
@@ -20,7 +19,7 @@ public class Assignment {
                     + "u = undo, r = redo, sl = show list undo/redo, x = exit system ");
             command = sc.next();
 
-            CoffeeCommand com = createCommand(command, commands, coffeeProduct, ct);
+            CoffeeCommand com = createCommand(command, commands, ch.getProducts(), ct);
             com.excute();
         }
     }

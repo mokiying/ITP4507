@@ -3,25 +3,34 @@ import java.util.*;
 
 public class CoffeeHouse {
 
-    private List<CoffeeProduct> products;//data
+    private Vector<CoffeeProduct> products;//data
 
     public CoffeeHouse() {
+        products = new Vector<CoffeeProduct>();
     }
 
-    public CoffeeHouse(List<CoffeeProduct> prods) {
+    public CoffeeHouse(Vector<CoffeeProduct> prods) {
         this.products = prods;
     }
 
-    public List<CoffeeProduct> getProducts() {
+    public Vector<CoffeeProduct> getProducts() {
         return this.products;
     }
 
-    public void setProducts(List<CoffeeProduct> prod) {
+    public void setProducts(Vector<CoffeeProduct> prod) {
         this.products = prod;
     }
-    
-    public void addProduct(CoffeeProduct coffeeProduct){
+
+    public void addProduct(CoffeeProduct coffeeProduct) {
         this.products.add(coffeeProduct);
+    }
+
+    public CoffeeHouse clone() {
+        CoffeeHouse temp = new CoffeeHouse();
+        for (CoffeeProduct cp : this.getProducts()) {
+            temp.addProduct(cp.clone());
+        }
+        return temp;
     }
 
 }
@@ -29,9 +38,8 @@ public class CoffeeHouse {
 class Memento {
 
     private CoffeeHouse coffeeHouse;// Target (not data)
-    private List<CoffeeProduct> data;// Record Data
+    private Vector<CoffeeProduct> data;// Record Data
     private String desc;
-    private CoffeeProduct coffeeProduct;
 
     public Memento() {
 
@@ -40,11 +48,7 @@ class Memento {
     public Memento(CoffeeHouse ch, String des) {
         this.coffeeHouse = ch;
         this.desc = des;
-        List<CoffeeProduct> temp = new Vector();
-        for (CoffeeProduct cp : ch.getProducts()) {
-            temp.add(cp);
-        }
-        this.data = temp; 
+        this.data = ch.clone().getProducts();
     }
 
     public String getDes() {
