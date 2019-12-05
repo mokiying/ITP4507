@@ -28,10 +28,5 @@ public class CoffeeCandy extends CoffeeProduct {
         return super.stringDetails() + "\nNumber of candies per package: " + getNoOfCandy() +
                 "\nCalories Per candy: " + getCaloriesPerCandy();
     }
-    
-    public CoffeeProduct clone(){
-        CoffeeProduct temp = new CoffeeCandy(this.getProductID(),this.getName(),this.getNoOfCandy(),this.getCaloriesPerCandy());
-        temp.setQty(this.getQty());
-        return temp;
-    }
+
 }

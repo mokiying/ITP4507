@@ -19,9 +19,4 @@ public class CoffeePowder extends CoffeeProduct{
         return super.stringDetails() + "\nWeight: " + getWeight();
     }
     
-    public CoffeeProduct clone(){
-        CoffeeProduct temp = new CoffeePowder(this.getProductID(),this.getName(),this.getWeight());
-        temp.setQty(this.getQty());
-        return temp;
-    }
 }

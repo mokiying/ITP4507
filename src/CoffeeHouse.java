@@ -16,36 +16,10 @@ public class CoffeeHouse {
         return this.products;
     }
 
-    public void setProducts(List<CoffeeProduct> p) {
-        this.products = p;
+    public void setProducts(List<CoffeeProduct> prod) {
+        this.products = prod;
     }
 
-    public void addProduct(CoffeeProduct coffeeProduct) {
-        boolean haveOrNot = false;
-        for (int i = 0; i < products.size(); i++) {
-            if (this.getProducts().get(i).getProductID() == coffeeProduct.getProductID()) {
-                haveOrNot = true;
-            }
-        }
-        if (haveOrNot) {
-            System.out.println("ProductID " + coffeeProduct.getProductID() + " is exist already.");
-        } else {
-            this.products.add(coffeeProduct);
-        }
-    }
-
-    @Override
-    public CoffeeHouse clone() {
-        CoffeeHouse temp = new CoffeeHouse(this.products);
-//        CoffeeProduct coffeeProduct;
-//        for (int i = 0; i < this.products.size(); i++) {
-//            temp.addProduct(coffeeProduct.clone());
-//        }
-        for(CoffeeProduct p : this.products){
-            temp.addProduct(p.clone());
-        }
-        return temp;
-    }
 }
 
 class Memento {
@@ -55,11 +29,11 @@ class Memento {
     private String desc;
 
     public Memento(CoffeeHouse ch, String des) {
-        this.coffeeHouse = ch; // Obj Ref
+        this.coffeeHouse = new CoffeeHouse(ch.getProducts()); // Obj Ref
         this.desc = des;
         List<CoffeeProduct> temp = new Vector(); // clone the data without obj ref 0v0/
         for (CoffeeProduct cp : ch.getProducts()) {
-            temp.add(cp.clone());
+            temp.add(cp); 
         }
         this.data = temp; //its stored a new obj not obj ref :>
     }
@@ -69,6 +43,6 @@ class Memento {
     }
 
     public void restore() {
-        coffeeHouse.setProducts(data);
+        this.coffeeHouse.setProducts(data);
     }
 }
