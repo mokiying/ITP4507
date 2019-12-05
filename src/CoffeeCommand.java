@@ -52,18 +52,18 @@ class ViewProductCommand implements CoffeeCommand {
 
     @Override
     public void excute() {
-        System.out.println("Enter product Id. (* to show all): ");
+        System.out.println("Enter product id (* to show all):");
         command = sc.nextLine();
         if (command.equals("*")) {
-            System.out.println("CoffeeProduct information");
+            System.out.println("\nCoffee Product information");
             System.out.println("ID\tName\t\t\tQuantity\tOther Info");
             for (int i = 0; i < coffeeProduct.size(); i++) {
                 System.out.println(coffeeProduct.get(i));
             }
         } else {
             for (int i = 0; i < coffeeProduct.size(); i++) {
-                if (command.equals(coffeeProduct.get(i).getProductID())) {
-                    System.out.println("Product information");
+                if (coffeeProduct.get(i).getProductID()==Integer.valueOf(command)) { 
+                    System.out.println("\nProduct information");
                     System.out.println(coffeeProduct.get(i).stringDetails());
                 }
             }
@@ -86,18 +86,18 @@ class CollectProductCommand implements CoffeeCommand {
 
     @Override
     public void excute() {
-        System.out.println("Enter code: ");
+        System.out.println("Enter product id:");
         command = Integer.parseInt(sc.nextLine());
         for (int i = 0; i < coffeeProduct.size(); i++) {
             if (command == coffeeProduct.get(i).getProductID()) {
-                System.out.println("Quantity to receive: ");
+                System.out.println("Quantity to receive:");
                 CoffeeProduct cofp = coffeeProduct.get(i);
                 int addQty = Integer.parseInt(sc.nextLine());
-                String des = "Received " + addQty + " " + cofp.getName() + " (" + cofp.getProductID() + ") ";
+                String des = "Received " + addQty + " " + cofp.getName() + " (" + cofp.getProductID() + ")";
                 ct.saveHistory(new CoffeeHouse(coffeeProduct), des);
                 cofp.setQty(cofp.getQty() + addQty);
                 System.out.println("Received " + addQty + " packs of " + cofp.getName()
-                        + ". Current quantity is " + cofp.getQty() + ". ");
+                        + ". Current quantity is " + cofp.getQty() + ".\n");
             }
         }
     }
@@ -118,21 +118,21 @@ class ShipProductCommand implements CoffeeCommand {
 
     @Override
     public void excute() {
-        System.out.println("Enter code: ");
+        System.out.println("Enter product id:");
         command = Integer.parseInt(sc.nextLine());
         for (int i = 0; i < coffeeProduct.size(); i++) {
             if (command == coffeeProduct.get(i).getProductID()) {
-                System.out.println("Quantity to ship: ");
+                System.out.println("Quantity to ship:");
                 CoffeeProduct cofp = coffeeProduct.get(i);
                 int deQty = Integer.parseInt(sc.nextLine());
                 if (cofp.getQty() < deQty) {
-                    System.out.println("Invalid quantity (current balance is less than required quantity). Try again!!! ");
+                    System.out.println("Invalid quantity (current balance is less than required quantity). Try again!!!");
                 } else {
-                    String des = "Shipped " + deQty + " " + cofp.getName() + " (" + cofp.getProductID() + ") ";
+                    String des = "Shipped " + deQty + " " + cofp.getName() + " (" + cofp.getProductID() + ")";
                     ct.saveHistory(new CoffeeHouse(coffeeProduct), des);
                     cofp.setQty(cofp.getQty() - deQty);
                     System.out.println("Shipped " + deQty + " packs of " + cofp.getName()
-                            + ". Current quantity is " + cofp.getQty() + ". ");
+                            + ". Current quantity is " + cofp.getQty() + ".\n");
                 }
             }
         }

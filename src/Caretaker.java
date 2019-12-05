@@ -54,12 +54,20 @@ public class Caretaker {
 
     public String toString() {
         String s = "Undo List: \n";
-        for (int i = 1; i < undoList.size(); i++) {
-            s += undoList.get(i).getDes() + "\n";
+        if (undoList.size() <= 1) {
+            s += "Empty";
+        } else {
+            for (int i = 1; i < undoList.size(); i++) {
+                s += undoList.get(i).getDes() + "\n";
+            }
         }
-        s += "\nRedo List: \n";
-        for (int i = 0; i < redoList.size(); i++) {
-            s += redoList.get(i).getDes() + "\n";
+        if (redoList.size() == 0) {
+            s += "Empty";
+        } else {
+            s += "\nRedo List: \n";
+            for (int i = 0; i < redoList.size(); i++) {
+                s += redoList.get(i).getDes() + "\n";
+            }
         }
         return s;
     }
