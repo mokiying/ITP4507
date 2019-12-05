@@ -19,6 +19,10 @@ public class CoffeeHouse {
     public void setProducts(List<CoffeeProduct> prod) {
         this.products = prod;
     }
+    
+    public void addProduct(CoffeeProduct coffeeProduct){
+        this.products.add(coffeeProduct);
+    }
 
 }
 
@@ -27,22 +31,31 @@ class Memento {
     private CoffeeHouse coffeeHouse;// Target (not data)
     private List<CoffeeProduct> data;// Record Data
     private String desc;
+    private CoffeeProduct coffeeProduct;
+
+    public Memento() {
+
+    }
 
     public Memento(CoffeeHouse ch, String des) {
-        this.coffeeHouse = new CoffeeHouse(ch.getProducts()); // Obj Ref
+        this.coffeeHouse = ch;
         this.desc = des;
-        List<CoffeeProduct> temp = new Vector(); // clone the data without obj ref 0v0/
+        List<CoffeeProduct> temp = new Vector();
         for (CoffeeProduct cp : ch.getProducts()) {
-            temp.add(cp); 
+            temp.add(cp);
         }
-        this.data = temp; //its stored a new obj not obj ref :>
+        this.data = temp; 
     }
 
     public String getDes() {
         return desc;
     }
 
+    public CoffeeHouse getCoffeeHouse() {
+        return this.coffeeHouse;
+    }
+
     public void restore() {
-        this.coffeeHouse.setProducts(data);
+        coffeeHouse.setProducts(data);
     }
 }
