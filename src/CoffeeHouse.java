@@ -16,7 +16,7 @@ public class CoffeeHouse {
     public Vector<CoffeeProduct> getProducts() {
         return this.products;
     }
-
+    
     public void setProducts(Vector<CoffeeProduct> prod) {
         this.products = prod;
     }
@@ -53,10 +53,6 @@ class Memento {
 
     public String getDes() {
         return desc;
-    }
-
-    public CoffeeHouse getCoffeeHouse() {
-        return this.coffeeHouse;
     }
 
     public void restore() {

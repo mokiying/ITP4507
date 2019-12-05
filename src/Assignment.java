@@ -7,7 +7,6 @@ public class Assignment {
 
     public static void main(String[] args) {
 
-        Stack<CoffeeCommand> commands = new Stack<CoffeeCommand>();
         Caretaker ct = new Caretaker();
         CoffeeHouse ch = new CoffeeHouse();
         String command;
@@ -19,19 +18,19 @@ public class Assignment {
                     + "u = undo,  r = redo,  sl = show list undo/redo,  x = exit system\n");
             command = sc.nextLine();
 
-            CoffeeCommand com = createCommand(command, commands, ch.getProducts(), ct);
+            CoffeeCommand com = createCommand(command, ch, ct);
             com.excute();
         }
     }
 
-    public static CoffeeCommand createCommand(String command, Stack commands, Vector<CoffeeProduct> coffeeProduct, Caretaker ct) {
+    public static CoffeeCommand createCommand(String command, CoffeeHouse ch, Caretaker ct) {
         CoffeeCommand com;
-        CommandFactory[] factory = {new AddProductFactory(coffeeProduct, sc, ct), 
-            new ViewProductFactory(coffeeProduct, sc), 
-            new CollectProductFactory(coffeeProduct, sc, ct),
-            new ShipProductFactory(coffeeProduct, sc, ct),
-            new UndoFactory(coffeeProduct, sc, ct), 
-            new RedoFactory(coffeeProduct, sc, ct), 
+        CommandFactory[] factory = {new AddProductFactory(ch, sc, ct), 
+            new ViewProductFactory(ch, sc), 
+            new CollectProductFactory(ch, sc, ct),
+            new ShipProductFactory(ch, sc, ct),
+            new UndoFactory(ch, sc, ct), 
+            new RedoFactory(ch, sc, ct), 
             new ShowListUnRedoFactory(sc, ct), 
             new ExitSystemFactory()};
         if (command.equals("a")) {

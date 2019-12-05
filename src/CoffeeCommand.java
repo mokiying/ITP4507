@@ -10,11 +10,11 @@ class AddProductCommand implements CoffeeCommand {
 
     private Scanner sc;
     private String command;
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Caretaker ct;
     CoffeeProductFactory[] cf = {new CoffeePowderFactory(), new CoffeeCandyFactory()};
 
-    public AddProductCommand(Vector<CoffeeProduct> coffeeProduct, Scanner sc, Caretaker ct) {
+    public AddProductCommand(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
         this.ct = ct;
@@ -27,25 +27,25 @@ class AddProductCommand implements CoffeeCommand {
         CoffeeProduct temp = null;
         if (command.equals("cp")) {
             temp = cf[0].createCoffeeProduct(sc);
+            coffeeProduct.addProduct(temp);
             String des = "Add " + temp.getProductID() + " " + temp.getName();
-            ct.saveHistory(new CoffeeHouse(coffeeProduct), des);
-            coffeeProduct.add(temp);
+            ct.saveHistory(coffeeProduct, des);
         } else if (command.equals("cc")) {
             temp = cf[1].createCoffeeProduct(sc);
+            coffeeProduct.addProduct(temp);
             String des = "Add " + temp.getProductID() + " " + temp.getName();
-            ct.saveHistory(new CoffeeHouse(coffeeProduct), des);
-            coffeeProduct.add(temp);
+            ct.saveHistory(coffeeProduct, des);          
         }
     }
 }
 
 class ViewProductCommand implements CoffeeCommand {
 
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private String command;
 
-    public ViewProductCommand(Vector<CoffeeProduct> coffeeProduct, Scanner sc) {
+    public ViewProductCommand(CoffeeHouse coffeeProduct, Scanner sc) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
     }
@@ -57,14 +57,14 @@ class ViewProductCommand implements CoffeeCommand {
         if (command.equals("*")) {
             System.out.println("\nCoffee Product information");
             System.out.println("ID\tName\t\t\tQuantity\tOther Info");
-            for (int i = 0; i < coffeeProduct.size(); i++) {
-                System.out.println(coffeeProduct.get(i));
+            for (int i = 0; i < coffeeProduct.getProducts().size(); i++) {
+                System.out.println(coffeeProduct.getProducts().get(i));
             }
         } else {
-            for (int i = 0; i < coffeeProduct.size(); i++) {
-                if (coffeeProduct.get(i).getProductID()==Integer.valueOf(command)) { 
+            for (int i = 0; i < coffeeProduct.getProducts().size(); i++) {
+                if (coffeeProduct.getProducts().get(i).getProductID()==Integer.valueOf(command)) { 
                     System.out.println("\nProduct information");
-                    System.out.println(coffeeProduct.get(i).stringDetails());
+                    System.out.println(coffeeProduct.getProducts().get(i).stringDetails());
                 }
             }
         }
@@ -73,12 +73,12 @@ class ViewProductCommand implements CoffeeCommand {
 
 class CollectProductCommand implements CoffeeCommand {
 
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private int command;
     private Caretaker ct;
 
-    public CollectProductCommand(Vector<CoffeeProduct> coffeeProduct, Scanner sc, Caretaker ct) {
+    public CollectProductCommand(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
         this.ct = ct;
@@ -88,14 +88,15 @@ class CollectProductCommand implements CoffeeCommand {
     public void excute() {
         System.out.println("Enter product id:");
         command = Integer.parseInt(sc.nextLine());
-        for (int i = 0; i < coffeeProduct.size(); i++) {
-            if (command == coffeeProduct.get(i).getProductID()) {
+        for (int i = 0; i < coffeeProduct.getProducts().size(); i++) {
+            if (command == coffeeProduct.getProducts().get(i).getProductID()) {
                 System.out.println("Quantity to receive:");
-                CoffeeProduct cofp = coffeeProduct.get(i);
+                CoffeeProduct cofp = coffeeProduct.getProducts().get(i);
                 int addQty = Integer.parseInt(sc.nextLine());
                 String des = "Received " + addQty + " " + cofp.getName() + " (" + cofp.getProductID() + ")";
-                ct.saveHistory(new CoffeeHouse(coffeeProduct), des);
+                
                 cofp.setQty(cofp.getQty() + addQty);
+                ct.saveHistory(coffeeProduct, des);
                 System.out.println("Received " + addQty + " packs of " + cofp.getName()
                         + ". Current quantity is " + cofp.getQty() + ".\n");
             }
@@ -105,12 +106,12 @@ class CollectProductCommand implements CoffeeCommand {
 
 class ShipProductCommand implements CoffeeCommand {
 
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private int command;
     private Caretaker ct;
 
-    public ShipProductCommand(Vector<CoffeeProduct> coffeeProduct, Scanner sc, Caretaker ct) {
+    public ShipProductCommand(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
         this.ct = ct;
@@ -120,17 +121,18 @@ class ShipProductCommand implements CoffeeCommand {
     public void excute() {
         System.out.println("Enter product id:");
         command = Integer.parseInt(sc.nextLine());
-        for (int i = 0; i < coffeeProduct.size(); i++) {
-            if (command == coffeeProduct.get(i).getProductID()) {
+        for (int i = 0; i < coffeeProduct.getProducts().size(); i++) {
+            if (command == coffeeProduct.getProducts().get(i).getProductID()) {
                 System.out.println("Quantity to ship:");
-                CoffeeProduct cofp = coffeeProduct.get(i);
+                CoffeeProduct cofp = coffeeProduct.getProducts().get(i);
                 int deQty = Integer.parseInt(sc.nextLine());
                 if (cofp.getQty() < deQty) {
                     System.out.println("Invalid quantity (current balance is less than required quantity). Try again!!!");
                 } else {
                     String des = "Shipped " + deQty + " " + cofp.getName() + " (" + cofp.getProductID() + ")";
-                    ct.saveHistory(new CoffeeHouse(coffeeProduct), des);
+                    
                     cofp.setQty(cofp.getQty() - deQty);
+                    ct.saveHistory(coffeeProduct, des);
                     System.out.println("Shipped " + deQty + " packs of " + cofp.getName()
                             + ". Current quantity is " + cofp.getQty() + ".\n");
                 }
@@ -141,11 +143,11 @@ class ShipProductCommand implements CoffeeCommand {
 
 class UndoCommand implements CoffeeCommand {
 
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private Caretaker ct;
 
-    public UndoCommand(Vector<CoffeeProduct> coffeeProduct, Scanner sc, Caretaker ct) {
+    public UndoCommand(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
         this.ct = ct;
@@ -163,11 +165,11 @@ class UndoCommand implements CoffeeCommand {
 
 class RedoCommand implements CoffeeCommand {
 
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private Caretaker ct;
 
-    public RedoCommand(Vector<CoffeeProduct> coffeeProduct, Scanner sc, Caretaker ct) {
+    public RedoCommand(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
         this.ct = ct;

@@ -10,10 +10,10 @@ interface CommandFactory {
 class AddProductFactory implements CommandFactory {
 
     private Scanner sc;
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Caretaker ct;
 
-    public AddProductFactory(Vector<CoffeeProduct> coffeeProduct, Scanner sc, Caretaker ct) {
+    public AddProductFactory(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
         this.ct = ct;
@@ -28,10 +28,10 @@ class AddProductFactory implements CommandFactory {
 
 class ViewProductFactory implements CommandFactory {
 
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Scanner sc;
 
-    public ViewProductFactory(Vector<CoffeeProduct> coffeeProduct, Scanner sc) {
+    public ViewProductFactory(CoffeeHouse coffeeProduct, Scanner sc) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
     }
@@ -45,11 +45,11 @@ class ViewProductFactory implements CommandFactory {
 
 class CollectProductFactory implements CommandFactory {
 
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private Caretaker ct;
 
-    public CollectProductFactory(Vector<CoffeeProduct> coffeeProduct, Scanner sc, Caretaker ct) {
+    public CollectProductFactory(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
         this.ct = ct;
@@ -64,11 +64,11 @@ class CollectProductFactory implements CommandFactory {
 
 class ShipProductFactory implements CommandFactory {
 
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private Caretaker ct;
 
-    public ShipProductFactory(Vector<CoffeeProduct> coffeeProduct, Scanner sc, Caretaker ct) {
+    public ShipProductFactory(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
         this.ct = ct;
@@ -83,11 +83,11 @@ class ShipProductFactory implements CommandFactory {
 
 class UndoFactory implements CommandFactory {
 
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private Caretaker ct;
 
-    public UndoFactory(Vector<CoffeeProduct> coffeeProduct, Scanner sc, Caretaker ct) {
+    public UndoFactory(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
         this.ct = ct;
@@ -102,11 +102,11 @@ class UndoFactory implements CommandFactory {
 
 class RedoFactory implements CommandFactory {
 
-    private Vector<CoffeeProduct> coffeeProduct;
+    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private Caretaker ct;
 
-    public RedoFactory(Vector<CoffeeProduct> coffeeProduct, Scanner sc, Caretaker ct) {
+    public RedoFactory(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
         this.coffeeProduct = coffeeProduct;
         this.sc = sc;
         this.ct = ct;

@@ -61,10 +61,10 @@ public class Caretaker {
                 s += undoList.get(i).getDes() + "\n";
             }
         }
+        s += "\nRedo List: \n";
         if (redoList.size() == 0) {
             s += "Empty";
         } else {
-            s += "\nRedo List: \n";
             for (int i = 0; i < redoList.size(); i++) {
                 s += redoList.get(i).getDes() + "\n";
             }
