@@ -15,9 +15,9 @@ public class Assignment {
         while (true) {
             System.out.println("Coffee Inventory Management System");
             System.out.println("Please enter command: [a | v | c | s | u | r | sl | x]");
-            System.out.println("a = add product, v = view product, c = collect product, s = ship product, "
+            System.out.println("a = add product, v = view products, c = collect product, s = ship product, \n"
                     + "u = undo, r = redo, sl = show list undo/redo, x = exit system ");
-            command = sc.next();
+            command = sc.nextLine();
 
             CoffeeCommand com = createCommand(command, commands, ch.getProducts(), ct);
             com.excute();

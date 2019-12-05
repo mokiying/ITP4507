@@ -11,7 +11,7 @@ class CoffeePowderFactory implements CoffeeProductFactory {
     @Override
     public CoffeeProduct createCoffeeProduct(Scanner sc) {
         System.out.println("Enter product Id, name and weight(g): ");
-        String[] data = sc.next().split(",");
+        String[] data = sc.nextLine().split(",");
         try {
             int productID = Integer.parseInt(data[0]);
             String name = data[1];
@@ -33,7 +33,7 @@ class CoffeeCandyFactory implements CoffeeProductFactory {
     @Override
     public CoffeeProduct createCoffeeProduct(Scanner sc) {
         System.out.println("Enter product Id, name, number of candy and calories per candy: ");
-        String[] data = sc.next().split(",");
+        String[] data = sc.nextLine().split(",");
         try {
             int productID = Integer.parseInt(data[0]);
             String name = data[1];

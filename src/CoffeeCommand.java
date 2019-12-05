@@ -23,7 +23,7 @@ class AddProductCommand implements CoffeeCommand {
     @Override
     public void excute() {
         System.out.println("Enter Coffee type (cc=Coffee Candy/cp=Coffee Powder): ");
-        command = sc.next();
+        command = sc.nextLine();
         CoffeeProduct temp = null;
         if (command.equals("cp")) {
             temp = cf[0].createCoffeeProduct(sc);
@@ -53,7 +53,7 @@ class ViewProductCommand implements CoffeeCommand {
     @Override
     public void excute() {
         System.out.println("Enter product Id. (* to show all): ");
-        command = sc.next();
+        command = sc.nextLine();
         if (command.equals("*")) {
             System.out.println("CoffeeProduct information");
             System.out.println("ID\tName\t\t\tQuantity\tOther Info");
@@ -87,12 +87,12 @@ class CollectProductCommand implements CoffeeCommand {
     @Override
     public void excute() {
         System.out.println("Enter code: ");
-        command = Integer.parseInt(sc.next());
+        command = Integer.parseInt(sc.nextLine());
         for (int i = 0; i < coffeeProduct.size(); i++) {
             if (command == coffeeProduct.get(i).getProductID()) {
                 System.out.println("Quantity to receive: ");
                 CoffeeProduct cofp = coffeeProduct.get(i);
-                int addQty = Integer.parseInt(sc.next());
+                int addQty = Integer.parseInt(sc.nextLine());
                 String des = "Received " + addQty + " " + cofp.getName() + " (" + cofp.getProductID() + ") ";
                 ct.saveHistory(new CoffeeHouse(coffeeProduct), des);
                 cofp.setQty(cofp.getQty() + addQty);
@@ -119,12 +119,12 @@ class ShipProductCommand implements CoffeeCommand {
     @Override
     public void excute() {
         System.out.println("Enter code: ");
-        command = Integer.parseInt(sc.next());
+        command = Integer.parseInt(sc.nextLine());
         for (int i = 0; i < coffeeProduct.size(); i++) {
             if (command == coffeeProduct.get(i).getProductID()) {
                 System.out.println("Quantity to ship: ");
                 CoffeeProduct cofp = coffeeProduct.get(i);
-                int deQty = Integer.parseInt(sc.next());
+                int deQty = Integer.parseInt(sc.nextLine());
                 if (cofp.getQty() < deQty) {
                     System.out.println("Invalid quantity (current balance is less than required quantity). Try again!!! ");
                 } else {
