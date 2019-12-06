@@ -15,7 +15,7 @@ class CoffeePowderFactory implements CoffeeProductFactory {
         try {
             int productID = Integer.parseInt(data[0]);
             String name = data[1];
-            int weight = Integer.parseInt(data[2]);
+            Double weight = Double.parseDouble(data[2]);
             CoffeePowder powder = new CoffeePowder(productID, name, weight);
             System.out.println("New product record created.\n");
             return powder;
