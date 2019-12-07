@@ -99,9 +99,9 @@ class CollectProductCommand implements CoffeeCommand {
                 CoffeeProduct cofp = ch.getVtcp().get(i);
                 int addQty = Integer.parseInt(sc.nextLine());
                 String des = "Received " + addQty + " " + cofp.getName() + " (" + cofp.getProductID() + ")";
-
-                cofp.setQty(cofp.getQty() + addQty);
                 ct.saveHistory(cofp, des);
+                cofp.setQty(cofp.getQty() + addQty);
+
                 System.out.println("Received " + addQty + " packs of " + cofp.getName()
                         + ". Current quantity is " + cofp.getQty() + ".\n");
             }
@@ -135,9 +135,9 @@ class ShipProductCommand implements CoffeeCommand {
                     System.out.println("Invalid quantity (current balance is less than required quantity). Try again!!!");
                 } else {
                     String des = "Shipped " + deQty + " " + cofp.getName() + " (" + cofp.getProductID() + ")";
-
-                    cofp.setQty(cofp.getQty() - deQty);
                     ct.saveHistory(cofp, des);
+                    cofp.setQty(cofp.getQty() - deQty);
+
                     System.out.println("Shipped " + deQty + " packs of " + cofp.getName()
                             + ". Current quantity is " + cofp.getQty() + ".\n");
                 }

@@ -50,15 +50,17 @@ public class CoffeeHouse {
         vtcp.add(cp);
     }
 
-    public Memento saveToMemento(CoffeeProduct nProduct, String nDes) {
-        return new Memento(nProduct, nDes);
-    }
+//    public Memento saveToMemento(CoffeeProduct nProduct, String nDes) {
+//        return new Memento(nProduct, nDes);
+//    }
+//    public void delVtcp() {
+//        vtcp.remove(vtcp.size() - 1);
+//    }
+//
+//    public void rm(Memento m) {
+//        this.vtcp.remove(m.getCoffeeProduct());
+//    }
 
-    public void getFromMemento(Memento m) { //restoreFromMemento
-        this.product = m.getCoffeeProduct();
-        this.des = m.getDes();
-        product.setQty(m.getQty());
-    }
 }
 
 class Memento {
@@ -91,7 +93,7 @@ class Memento {
     }
 
     public void restore() {
-        data.setQty(this.qty);
+            data.setQty(this.qty);
     }
 
 }

@@ -20,9 +20,9 @@ public class Caretaker {
 
     public void undo() {
         if (!undoList.isEmpty()) {
-            System.out.println("Perform undo.");
-            Memento m = (Memento) undoList.pop();
-            Memento redomemento = new Memento();
+            System.out.println("undo completed.");
+            Memento m = undoList.pop();
+            Memento redomemento = new Memento(m.getCoffeeProduct(), m.getDes());
             redoList.push(redomemento);
             m.restore();
         } else {
@@ -32,12 +32,11 @@ public class Caretaker {
 
     public void redo() {
         if (!redoList.isEmpty()) {
-            System.out.println("Perform redo.");
-            Memento m = (Memento) redoList.pop();
+            System.out.println("redo completed.");
+            Memento m = redoList.pop();
             Memento undomemento = new Memento(m.getCoffeeProduct(), m.getDes());
             undoList.push(undomemento);
-            //m.restore();
-            ch.getFromMemento(m);
+            m.restore();
         } else {
             System.out.println("Nothing to redo.");
         }
@@ -53,7 +52,7 @@ public class Caretaker {
 
     public String toString() {
         String s = "Undo List: \n";
-        if (undoList.size() <= 1) {
+        if (undoList.size() == 0) {
             s += "Empty\n";
         } else {
             for (int i = 0; i < undoList.size(); i++) {
