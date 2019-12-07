@@ -10,111 +10,108 @@ interface CommandFactory {
 class AddProductFactory implements CommandFactory {
 
     private Scanner sc;
-    private CoffeeHouse coffeeProduct;
+    private CoffeeProduct coffeeProduct;
     private Caretaker ct;
+    private CoffeeHouse ch;
 
-    public AddProductFactory(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
-        this.coffeeProduct = coffeeProduct;
+    public AddProductFactory(Scanner sc, Caretaker ct, CoffeeHouse ch) {
         this.sc = sc;
         this.ct = ct;
+        this.ch = ch;
     }
 
     @Override
     public CoffeeCommand create() {
-        return new AddProductCommand(coffeeProduct, sc, ct);
+        return new AddProductCommand(coffeeProduct, sc, ct, ch);
     }
 
 }
 
 class ViewProductFactory implements CommandFactory {
 
-    private CoffeeHouse coffeeProduct;
     private Scanner sc;
+    private CoffeeHouse ch;
 
-    public ViewProductFactory(CoffeeHouse coffeeProduct, Scanner sc) {
-        this.coffeeProduct = coffeeProduct;
+    public ViewProductFactory(Scanner sc, CoffeeHouse ch) {
         this.sc = sc;
+        this.ch = ch;
     }
 
     @Override
     public CoffeeCommand create() {
-        return new ViewProductCommand(coffeeProduct, sc);
+        return new ViewProductCommand(sc, ch);
     }
 
 }
 
 class CollectProductFactory implements CommandFactory {
 
-    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private Caretaker ct;
+    private CoffeeHouse ch;
 
-    public CollectProductFactory(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
-        this.coffeeProduct = coffeeProduct;
+    public CollectProductFactory(Scanner sc, Caretaker ct, CoffeeHouse ch) {
         this.sc = sc;
         this.ct = ct;
+        this.ch = ch;
     }
 
     @Override
     public CoffeeCommand create() {
-        return new CollectProductCommand(coffeeProduct, sc, ct);
+        return new CollectProductCommand(sc, ct, ch);
     }
 
 }
 
 class ShipProductFactory implements CommandFactory {
 
-    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private Caretaker ct;
+    private CoffeeHouse ch;
 
-    public ShipProductFactory(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
-        this.coffeeProduct = coffeeProduct;
+    public ShipProductFactory(Scanner sc, Caretaker ct, CoffeeHouse ch) {
         this.sc = sc;
         this.ct = ct;
+        this.ch = ch;
     }
 
     @Override
     public CoffeeCommand create() {
-        return new ShipProductCommand(coffeeProduct, sc, ct);
+        return new ShipProductCommand(sc, ct, ch);
     }
 
 }
 
 class UndoFactory implements CommandFactory {
 
-    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private Caretaker ct;
 
-    public UndoFactory(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
-        this.coffeeProduct = coffeeProduct;
+    public UndoFactory(Scanner sc, Caretaker ct) {
         this.sc = sc;
         this.ct = ct;
     }
 
     @Override
     public CoffeeCommand create() {
-        return new UndoCommand(coffeeProduct, sc, ct);
+        return new UndoCommand(ct);
     }
 
 }
 
 class RedoFactory implements CommandFactory {
 
-    private CoffeeHouse coffeeProduct;
     private Scanner sc;
     private Caretaker ct;
 
-    public RedoFactory(CoffeeHouse coffeeProduct, Scanner sc, Caretaker ct) {
-        this.coffeeProduct = coffeeProduct;
+    public RedoFactory(Scanner sc, Caretaker ct) {
         this.sc = sc;
         this.ct = ct;
     }
 
     @Override
     public CoffeeCommand create() {
-        return new RedoCommand(coffeeProduct, sc, ct);
+        return new RedoCommand(ct);
     }
 
 }

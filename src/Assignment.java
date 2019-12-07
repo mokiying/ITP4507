@@ -9,8 +9,8 @@ public class Assignment {
 
         Caretaker ct = new Caretaker();
         CoffeeHouse ch = new CoffeeHouse();
+        
         String command;
-        ct.saveHistory(ch, "FirstSave");
         while (true) {
             System.out.println("Coffee Inventory Management System");
             System.out.println("Please enter command: [a | v | c | s | u | r | sl | x]");
@@ -18,19 +18,19 @@ public class Assignment {
                     + "u = undo,  r = redo,  sl = show list undo/redo,  x = exit system\n");
             command = sc.nextLine();
 
-            CoffeeCommand com = createCommand(command, ch, ct);
+            CoffeeCommand com = createCommand(command, ct, ch);
             com.excute();
         }
     }
 
-    public static CoffeeCommand createCommand(String command, CoffeeHouse ch, Caretaker ct) {
+    public static CoffeeCommand createCommand(String command, Caretaker ct, CoffeeHouse ch) {
         CoffeeCommand com;
-        CommandFactory[] factory = {new AddProductFactory(ch, sc, ct), 
-            new ViewProductFactory(ch, sc), 
-            new CollectProductFactory(ch, sc, ct),
-            new ShipProductFactory(ch, sc, ct),
-            new UndoFactory(ch, sc, ct), 
-            new RedoFactory(ch, sc, ct), 
+        CommandFactory[] factory = {new AddProductFactory(sc, ct, ch), 
+            new ViewProductFactory(sc, ch), 
+            new CollectProductFactory(sc, ct, ch),
+            new ShipProductFactory(sc, ct, ch),
+            new UndoFactory(sc, ct), 
+            new RedoFactory(sc, ct), 
             new ShowListUnRedoFactory(sc, ct), 
             new ExitSystemFactory()};
         if (command.equals("a")) {

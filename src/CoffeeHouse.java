@@ -3,59 +3,95 @@ import java.util.*;
 
 public class CoffeeHouse {
 
-    private Vector<CoffeeProduct> products;//data
+    private Vector<CoffeeProduct> vtcp;
+    private CoffeeProduct product;
+    private String des;
 
     public CoffeeHouse() {
-        products = new Vector<CoffeeProduct>();
+        this.vtcp = new Vector<CoffeeProduct>();
     }
 
-    public CoffeeHouse(Vector<CoffeeProduct> prods) {
-        this.products = prods;
+    public CoffeeHouse(CoffeeProduct prods, String des) {
+        this.product = prods;
+        this.des = des;
     }
 
-    public Vector<CoffeeProduct> getProducts() {
-        return this.products;
-    }
-    
-    public void setProducts(Vector<CoffeeProduct> prod) {
-        this.products = prod;
+    public CoffeeHouse(Vector<CoffeeProduct> vtcp, CoffeeProduct prods, String des) {
+        this.vtcp = vtcp;
+        this.product = prods;
+        this.des = des;
     }
 
-    public void addProduct(CoffeeProduct coffeeProduct) {
-        this.products.add(coffeeProduct);
+    public Vector<CoffeeProduct> getVtcp() {
+        return this.vtcp;
     }
 
-    public CoffeeHouse clone() {
-        CoffeeHouse temp = new CoffeeHouse();
-        for (CoffeeProduct cp : this.getProducts()) {
-            temp.addProduct(cp.clone());
-        }
-        return temp;
+    public CoffeeProduct getProducts() {
+        return this.product;
     }
 
+    public String getDes() {
+        return this.des;
+    }
+
+    public void setVtcp(Vector<CoffeeProduct> vtcp1) {
+        this.vtcp = vtcp1;
+    }
+
+    public void setProducts(CoffeeProduct prod1) {
+        this.product = prod1;
+    }
+
+    public void setDes(String des1) {
+        this.des = des1;
+    }
+
+    public void addProductToVcpt(CoffeeProduct cp) {
+        vtcp.add(cp);
+    }
+
+    public Memento saveToMemento(CoffeeProduct nProduct, String nDes) {
+        return new Memento(nProduct, nDes);
+    }
+
+    public void getFromMemento(Memento m) { //restoreFromMemento
+        this.product = m.getCoffeeProduct();
+        this.des = m.getDes();
+        product.setQty(m.getQty());
+    }
 }
 
 class Memento {
 
-    private CoffeeHouse coffeeHouse;// Target (not data)
-    private Vector<CoffeeProduct> data;// Record Data
+    private CoffeeProduct data;
+    private int qty;
     private String desc;
+    CoffeeHouse ch;
 
     public Memento() {
 
     }
 
-    public Memento(CoffeeHouse ch, String des) {
-        this.coffeeHouse = ch;
+    public Memento(CoffeeProduct cp, String des) {
+        this.data = cp;
         this.desc = des;
-        this.data = ch.clone().getProducts();
+        this.qty = cp.getQty();
     }
 
     public String getDes() {
-        return desc;
+        return this.desc;
+    }
+
+    public CoffeeProduct getCoffeeProduct() {
+        return this.data;
+    }
+
+    public int getQty() {
+        return this.qty;
     }
 
     public void restore() {
-        coffeeHouse.setProducts(data);
+        data.setQty(this.qty);
     }
+
 }

@@ -5,42 +5,41 @@ public class Caretaker {
 
     private Stack<Memento> undoList;
     private Stack<Memento> redoList;
+    CoffeeHouse ch;
 
     public Caretaker() {
         undoList = new Stack<Memento>();
         redoList = new Stack<Memento>();
     }
 
-    public void saveHistory(CoffeeHouse ch, String des) {
-        Memento amemento = new Memento(ch, des);
-        if (!redoList.empty()) {
-            if (!amemento.equals(redoList.get(redoList.size() - 1))) {
-                redoList.clear();
-            }
-        }
+    public void saveHistory(CoffeeProduct cp, String des) {
+        redoList.clear();
+        Memento amemento = new Memento(cp, des);
         undoList.push(amemento);
     }
 
-    public boolean undo() {
-        if (undoList.size() > 1) {
-            Memento temp = undoList.pop();
-            redoList.push(temp);
-            Memento m = undoList.get(undoList.size() - 1);
+    public void undo() {
+        if (!undoList.isEmpty()) {
+            System.out.println("Perform undo.");
+            Memento m = (Memento) undoList.pop();
+            Memento redomemento = new Memento();
+            redoList.push(redomemento);
             m.restore();
-            return true;
         } else {
-            return false;
+            System.out.println("Nothing to undo.");
         }
     }
 
-    public boolean redo() {
+    public void redo() {
         if (!redoList.isEmpty()) {
-            Memento m = redoList.pop();
-            undoList.push(m);
-            m.restore();
-            return true;
+            System.out.println("Perform redo.");
+            Memento m = (Memento) redoList.pop();
+            Memento undomemento = new Memento(m.getCoffeeProduct(), m.getDes());
+            undoList.push(undomemento);
+            //m.restore();
+            ch.getFromMemento(m);
         } else {
-            return false;
+            System.out.println("Nothing to redo.");
         }
     }
 
@@ -55,15 +54,15 @@ public class Caretaker {
     public String toString() {
         String s = "Undo List: \n";
         if (undoList.size() <= 1) {
-            s += "Empty";
+            s += "Empty\n";
         } else {
-            for (int i = 1; i < undoList.size(); i++) {
+            for (int i = 0; i < undoList.size(); i++) {
                 s += undoList.get(i).getDes() + "\n";
             }
         }
         s += "\nRedo List: \n";
         if (redoList.size() == 0) {
-            s += "Empty";
+            s += "Empty\n";
         } else {
             for (int i = 0; i < redoList.size(); i++) {
                 s += redoList.get(i).getDes() + "\n";

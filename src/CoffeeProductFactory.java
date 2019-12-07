@@ -20,8 +20,6 @@ class CoffeePowderFactory implements CoffeeProductFactory {
             System.out.println("New product record created.\n");
             return powder;
         } catch (Exception e) {
-            System.out.println(data);
-            System.out.println(e);
             System.out.println("Please input a valid values !");
         }
         return null;
