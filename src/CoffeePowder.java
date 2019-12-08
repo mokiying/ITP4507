@@ -9,7 +9,7 @@ public class CoffeePowder extends CoffeeProduct {
     }
 
     public String toString() {
-        return super.toString() + "\t\t" + getWeight() + "g";
+        return super.toString() + "\nWeight: " + getWeight() + "g";
     }
 
     public double getWeight() {
@@ -18,10 +18,6 @@ public class CoffeePowder extends CoffeeProduct {
 
     public void setWeight(double weight) {
         this.weight = weight;
-    }
-
-    public String stringDetails() {
-        return super.stringDetails() + "\nWeight: " + getWeight() + "g";
     }
 
 }

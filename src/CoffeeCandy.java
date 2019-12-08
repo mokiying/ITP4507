@@ -11,7 +11,8 @@ public class CoffeeCandy extends CoffeeProduct {
     }
 
     public String toString() {
-        return super.toString() + "\t\t" + getNoOfCandy() + " candy per package (" + getCaloriesPerCandy() + " calories each) ";
+        return super.toString() + "\nNumber of candies per package: " + getNoOfCandy()
+                + "\nCalories Per candy: " + getCaloriesPerCandy();
     }
 
     public int getNoOfCandy() {
@@ -28,11 +29,6 @@ public class CoffeeCandy extends CoffeeProduct {
 
     public void setCaloriesPerCandy(int caloriesPerCandy) {
         this.caloriesPerCandy = caloriesPerCandy;
-    }
-
-    public String stringDetails() {
-        return super.stringDetails() + "\nNumber of candies per package: " + getNoOfCandy()
-                + "\nCalories Per candy: " + getCaloriesPerCandy();
     }
 
 }

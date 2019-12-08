@@ -11,7 +11,7 @@ public class CoffeeProduct {
     }
 
     public String toString() {
-        return getProductID() + "\t" + getName() + "\t\t\t" + getQty();
+        return "ID: " + getProductID() + "\nName: " + getName() + "\nQuantity: " + getQty();
     }
 
     public String getName() {
@@ -37,9 +37,4 @@ public class CoffeeProduct {
     public void setQty(int qty) {
         this.qty = qty;
     }
-
-    public String stringDetails() {
-        return "ID: " + getProductID() + "\nName: " + getName() + "\nQuantity: " + getQty();
-    }
-
 }

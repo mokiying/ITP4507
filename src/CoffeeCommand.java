@@ -59,17 +59,39 @@ class ViewProductCommand implements CoffeeCommand {
     public void excute() {
         System.out.println("Enter product id (* to show all):");
         command = sc.nextLine();
+        Vector<CoffeeProduct> list = ch.getVtcp();
         if (command.equals("*")) {
-            System.out.println("\nCoffee Product information");
-            System.out.println("ID\tName\t\t\tQuantity\tOther Info");
-            for (int i = 0; i < ch.getVtcp().size(); i++) {
-                System.out.println(ch.getVtcp().get(i));
+            if (list.isEmpty()) {
+                System.out.println("There are no product");
+            } else {
+                System.out.println("\nCoffee Product information");
+                System.out.println("ID\tName\t\t\tQuantity\tOther Info");
+                for (CoffeeProduct p : list) {
+                    String[] s = p.toString().split("\n");
+                    String id = s[0].split(": ")[1];
+                    String name = s[1].split(": ")[1];
+                    String qty = s[2].split(": ")[1];
+                    String prt = "";
+                    for(int i=3;i<s.length;i++){
+                        String key = s[i].split(": ")[0];
+                        if(key.equals("Number of candies per package")){
+                            prt+=s[i].split(": ")[1]+" candy per package";
+                        }
+                        else if(key.equals("Calories Per candy")){
+                            prt+=" ("+s[i].split(": ")[1]+" calories each)";
+                        }
+                        else if(key.equals("Weight")){
+                            prt += (s[i].split(": ")[1]);
+                        }
+                    }
+                    System.out.println(id+"\t"+name+"\t"+qty+"\t"+prt);
+                }
             }
         } else {
             for (int i = 0; i < ch.getVtcp().size(); i++) {
                 if (ch.getVtcp().get(i).getProductID() == Integer.valueOf(command)) {
                     System.out.println("\nProduct information");
-                    System.out.println(ch.getVtcp().get(i).stringDetails());
+                    System.out.println(ch.getVtcp().get(i));
                 }
             }
         }
